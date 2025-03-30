@@ -205,19 +205,29 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-//FAQ
-document.querySelectorAll(".faq-question").forEach((button) => {
-  button.addEventListener("click", function () {
-    const faqItem = this.parentNode;
+// FAQ Accordion Functionality
+document.addEventListener("DOMContentLoaded", function () {
+  const faqButtons = document.querySelectorAll(".faq-question");
 
-    // Close any open FAQ
-    document.querySelectorAll(".faq-item").forEach((item) => {
-      if (item !== faqItem) {
-        item.classList.remove("active");
-      }
+  console.log("FAQ buttons found:", faqButtons.length); // Debugging: Check if buttons are found
+
+  if (faqButtons.length > 0) {
+    faqButtons.forEach((button) => {
+      button.addEventListener("click", function () {
+        const faqItem = this.parentNode;
+
+        // Close other open FAQs
+        document.querySelectorAll(".faq-item").forEach((item) => {
+          if (item !== faqItem) {
+            item.classList.remove("active");
+          }
+        });
+
+        // Toggle the clicked FAQ
+        faqItem.classList.toggle("active");
+      });
     });
-
-    // Toggle the selected FAQ
-    faqItem.classList.toggle("active");
-  });
+  } else {
+    console.error("No .faq-question elements found. Check HTML structure.");
+  }
 });
